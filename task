@@ -1,0 +1,2 @@
+Change dataclasses that use validation and or todict, etc. to use pydantic, as this has validation and from/to dict built-in.
+There are many 'Any' types. I want you to ensure type hinting is **perfect and :chefs_kiss:-like**
