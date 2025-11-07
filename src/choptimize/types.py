@@ -19,31 +19,25 @@ class GeminiConfig:
 
 @dataclass(frozen=True)
 class Metric:
-    """Analysis metric with score, explanation, & suggestions"""
+    """Analysis metric with score only."""
 
     score: float
-    explanation: str
-    suggestions: list[str]
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "Metric":
-        """Create Metric from dictionary
+        """Create Metric from dictionary.
 
         Args:
-            data: Dictionary with 'score', 'explanation', 'suggestions' keys.
+            data: Dictionary with 'score' key.
 
         Returns:
             Metric instance.
 
         Raises:
-            ValueError: If required fields are missing.
+            ValueError: If score is missing.
         """
         try:
-            return cls(
-                score=float(data["score"]),
-                explanation=str(data["explanation"]),
-                suggestions=list(data.get("suggestions", [])),
-            )
+            return cls(score=float(data["score"]))
         except (KeyError, ValueError, TypeError) as e:
             raise ValueError(f"Invalid metric data: {e}") from e
 
@@ -60,6 +54,7 @@ class AnalysisResult:
     context: Metric | None = None
     constraints: Metric | None = None
     brevity: Metric | None = None
+    recommendations: list[str] | None = None
     improved_prompt: str | None = None
     validation_reason: str | None = None
 
@@ -99,6 +94,7 @@ class AnalysisResult:
                 context=Metric.from_dict(metrics["context"]),
                 constraints=Metric.from_dict(metrics["constraints"]),
                 brevity=Metric.from_dict(metrics["brevity"]),
+                recommendations=list(data.get("recommendations", [])),
                 improved_prompt=data.get("improved_prompt"),
             )
         except (KeyError, ValueError, TypeError) as e:

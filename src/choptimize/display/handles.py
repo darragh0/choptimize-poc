@@ -1,4 +1,6 @@
 from rich.console import Console
 
-cout = Console()
-cerr = Console(stderr=True)
+from choptimize.display.theme import APP_THEME
+
+cout = Console(theme=APP_THEME)
+cerr = Console(stderr=True, theme=APP_THEME)

@@ -85,10 +85,6 @@ def run() -> None:
       choptimize "Write a function to reverse a string"
       echo "Create a REST API" | choptimize
       choptimize < my_prompt.txt
-
-    Args:
-        prompt: The prompt to analyze (None to read from stdin).
-        allow_any: If True, skip coding-related validation check.
     """
 
     try:

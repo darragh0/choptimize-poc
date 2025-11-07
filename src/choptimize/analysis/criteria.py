@@ -146,42 +146,48 @@ Return a JSON object with this exact structure:
 {
   "is_coding_related": true,
   "overall_score": <number 1-10, average of all metric scores>,
-  "overall_assessment": "<2-3 sentence summary of the prompt's strengths and weaknesses>",
+  "overall_assessment": "<comprehensive 3-5 paragraph analysis that:
+    - Synthesizes insights across all 5 metrics holistically
+    - Discusses how the metrics interact and affect overall prompt quality
+    - Identifies patterns, strengths, and critical weaknesses
+    - Explains the root causes of low scores
+    - Provides authoritative, expert-level assessment
+    - References concrete examples from the prompt
+
+    FORMATTING: Use Rich markup for emphasis and clarity:
+    - [bold]text[/bold] for strong emphasis on key points
+    - [italic]text[/italic] for subtle emphasis or terminology
+    - [cyan]metric names[/cyan] or [cyan]technical terms[/cyan] for metrics/concepts
+    - [green]positive aspects[/green] for strengths
+    - [yellow]concerns[/yellow] for warnings or areas needing attention
+    - [red]critical issues[/red] for severe problems
+    - Do NOT use markup for entire sentences, only for specific words/phrases
+    >",
   "metrics": {
-    "specificity": {
-      "score": <number 1-10>,
-      "explanation": "<3-5 sentences analyzing this dimension>",
-      "suggestions": ["<actionable improvement>", "<actionable improvement>"]
-    },
-    "clarity": {
-      "score": <number 1-10>,
-      "explanation": "<3-5 sentences analyzing this dimension>",
-      "suggestions": ["<actionable improvement>", "<actionable improvement>"]
-    },
-    "context": {
-      "score": <number 1-10>,
-      "explanation": "<3-5 sentences analyzing this dimension>",
-      "suggestions": ["<actionable improvement>", "<actionable improvement>"]
-    },
-    "constraints": {
-      "score": <number 1-10>,
-      "explanation": "<3-5 sentences analyzing this dimension>",
-      "suggestions": ["<actionable improvement>", "<actionable improvement>"]
-    },
-    "brevity": {
-      "score": <number 1-10>,
-      "explanation": "<3-5 sentences analyzing this dimension>",
-      "suggestions": ["<actionable improvement>", "<actionable improvement>"]
-    }
+    "specificity": {"score": <number 1-10>},
+    "clarity": {"score": <number 1-10>},
+    "context": {"score": <number 1-10>},
+    "constraints": {"score": <number 1-10>},
+    "brevity": {"score": <number 1-10>}
   },
-  "improved_prompt": "<optional: rewritten prompt incorporating suggestions>"
+  "recommendations": [
+    "<prioritized, actionable improvement considering all metrics
+     Use Rich markup for clarity:
+     - [bold]Action verbs[/bold] at start of recommendations
+     - [cyan]specific examples[/cyan] or [cyan]technical terms[/cyan]
+     - [yellow]WARNING:[/yellow] for breaking changes or important caveats
+    >",
+    ...
+  ],
+  "improved_prompt": "<optional: rewritten prompt incorporating recommendations
+                      May use [bold] for important requirements or [cyan] for technical terms>"
 }
 ```
 
 #### Analysis Guidelines
-- Be concise, specific & actionable in suggestions
-- Reference concrete examples from the prompt
-- Consider the scoring guidance for each metric
-- Provide at least 2 suggestions per metric when score < 8
+- Provide a comprehensive overall_assessment that synthesizes all metric insights
+- In recommendations, list 3-7 prioritized improvements that address multiple metrics
+- Focus on high-impact changes that improve overall prompt quality
+- Be specific and actionable, referencing concrete examples from the prompt
 - Include improved_prompt if overall_score < 7
 """
